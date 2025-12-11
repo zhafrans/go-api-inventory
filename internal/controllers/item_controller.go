@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 
 	"inventory-api/internal/models"
@@ -31,6 +33,8 @@ func (ctrl *ItemController) CreateItem(c *fiber.Ctx) error {
 	if req.Name == "" {
 		return ctrl.responseService.BadRequest(c, "Validation failed", "Item name is required")
 	}
+
+	fmt.Println("Item name:", req.Name)
 	
 	userID := c.Locals("userID")
 	if userID == nil {
@@ -42,14 +46,12 @@ func (ctrl *ItemController) CreateItem(c *fiber.Ctx) error {
 		return ctrl.responseService.Unauthorized(c, "Invalid user session", "Invalid user ID format")
 	}
 	
-	item, err := ctrl.itemService.CreateItem(&req, userIDStr)
+	_, err := ctrl.itemService.CreateItem(&req, userIDStr)
 	if err != nil {
 		return ctrl.responseService.BadRequest(c, "Failed to create item", err.Error())
 	}
 	
-	return ctrl.responseService.Created(c, "Item created successfully", fiber.Map{
-		"item": item,
-	})
+	return ctrl.responseService.Created(c, "Item created successfully", nil)
 }
 
 func (ctrl *ItemController) GetAllItems(c *fiber.Ctx) error {

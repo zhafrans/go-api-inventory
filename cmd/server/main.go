@@ -52,8 +52,6 @@ func main() {
 	protected.Get("/profile", authController.Profile)
 
 	protected.Get("/activities", activityController.GetAllActivities)
-	protected.Get("/activities/recent", activityController.GetRecentActivities)
-	protected.Get("/items/:id/activities", activityController.GetItemActivities)
 	
 	items := protected.Group("/items")
 	items.Post("/", itemController.CreateItem)

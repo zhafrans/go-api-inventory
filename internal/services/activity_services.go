@@ -1,8 +1,6 @@
 package services
 
 import (
-	"time"
-
 	"inventory-api/internal/database"
 	"inventory-api/internal/models"
 
@@ -79,23 +77,4 @@ func (s *ActivityService) GetRecentActivities(limit int) ([]models.ActivityLog, 
 		Find(&activities).Error
 	
 	return activities, err
-}
-
-func (s *ActivityService) GetActivitiesByDateRange(startDate, endDate time.Time, page, limit int) ([]models.ActivityLog, int64, error) {
-	var activities []models.ActivityLog
-	var total int64
-	
-	query := s.db.Where("created_at BETWEEN ? AND ?", startDate, endDate)
-	
-	if err := query.Model(&models.ActivityLog{}).Count(&total).Error; err != nil {
-		return nil, 0, err
-	}
-	
-	offset := (page - 1) * limit
-	err := query.Order("created_at DESC").
-		Limit(limit).
-		Offset(offset).
-		Find(&activities).Error
-	
-	return activities, total, err
 }

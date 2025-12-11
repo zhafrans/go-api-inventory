@@ -48,6 +48,10 @@ func (s *AuthService) Login(req *models.LoginRequest) (string, error) {
 		return "", errors.New("invalid credentials")
 	}
 	
+	if user == nil {
+		return "", errors.New("invalid credentials")
+	}
+	
 	if !user.CheckPassword(req.Password) {
 		return "", errors.New("invalid credentials")
 	}
@@ -59,6 +63,7 @@ func (s *AuthService) Login(req *models.LoginRequest) (string, error) {
 	
 	return token, nil
 }
+
 
 func (s *AuthService) GetUserProfile(userID string) (*models.User, error) {
 	user, err := s.userRepo.FindByID(userID)

@@ -37,8 +37,10 @@ func (r *ItemRepository) FindByID(id string) (*models.Item, error) {
 }
 
 func (r *ItemRepository) Update(item *models.Item) error {
-	return database.DB.Save(item).Error
+	result := r.db.Omit("created_by", "created_at", "sku").Save(item)
+	return result.Error
 }
+
 
 func (r *ItemRepository) Delete(id string) error {
 	return database.DB.Where("id = ?", id).Delete(&models.Item{}).Error

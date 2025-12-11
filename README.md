@@ -55,3 +55,6 @@ go run cmd/server/main.go
 ```bash
 go run cmd/scripts/migrate_fresh.go
 ```
+
+### Dokumentasi API Postman
+https://documenter.getpostman.com/view/37560855/2sB3dSNo4x
