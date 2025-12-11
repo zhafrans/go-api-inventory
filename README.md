@@ -31,7 +31,7 @@ REST API untuk manajemen inventaris barang menggunakan Golang, Fiber, GORM, dan 
 ## Prerequisites
 
 - Go 1.20 atau lebih baru
-- PostgreSQL 15 atau lebih baru
+- PostgreSQL 17 atau lebih baru
 - Git
 
 ## Instalasi dan Setup
